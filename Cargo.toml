@@ -1,0 +1,6 @@
+[package]
+name = "lemonbar"
+version = "0.0.1"
+authors = ["Julien Rostand <jrostand@users.noreply.github.com>"]
+
+[dependencies]

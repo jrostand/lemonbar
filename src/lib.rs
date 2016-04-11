@@ -4,7 +4,6 @@ use std::fmt::Write;
 pub mod block;
 pub mod button;
 
-#[allow(dead_code)]
 pub struct Bar {
     blocks: Vec<block::Block>,
 }

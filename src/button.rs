@@ -9,13 +9,13 @@ pub enum MouseButton {
 }
 
 pub struct Button {
-    actions:    Vec<ClickAction>,
-    text:       String,
+    pub actions:    Vec<ClickAction>,
+    pub text:       String,
 }
 
 pub struct ClickAction {
-    button:     MouseButton,
-    command:    String,
+    pub button:     MouseButton,
+    pub command:    String,
 }
 
 impl fmt::Display for Button {

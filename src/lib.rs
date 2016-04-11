@@ -4,7 +4,9 @@ use std::fmt::Write;
 pub mod block;
 pub mod button;
 
+/// The `Bar` struct holds Blocks together and makes them all into a lemonbar string.
 pub struct Bar {
+    /// The Blocks, in display order, to output to lemonbar
     blocks: Vec<block::Block>,
 }
 

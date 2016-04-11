@@ -1,5 +1,6 @@
 use std::fmt;
 
+/// The `MouseButton` type. Identifies mouse buttons for actions.
 pub enum MouseButton {
     Left,
     Middle,
@@ -8,11 +9,14 @@ pub enum MouseButton {
     ScrollDown,
 }
 
+/// Buttons contain a `Vec` of `ClickAction`s and some text. Typically used as the `text` of a `Block`.
 pub struct Button {
     pub actions:    Vec<ClickAction>,
     pub text:       String,
 }
 
+/// ClickActions hold a `MouseButton` and the command to execute when that mouse button is
+/// triggered on the `Block`.
 pub struct ClickAction {
     pub button:     MouseButton,
     pub command:    String,

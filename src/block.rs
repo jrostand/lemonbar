@@ -3,6 +3,7 @@ use std::slice::Iter;
 
 use self::BlockPosition::*;
 
+/// The `BlockPosition` type. Tells lemonbar where to position the Block.
 #[derive(PartialEq)]
 pub enum BlockPosition {
     Left,
@@ -10,18 +11,27 @@ pub enum BlockPosition {
     Right,
 }
 
+/// The block which is output to lemonbar. Typically limited to a single function.
 pub struct Block {
+    /// Where to align the block
     pub align:      BlockPosition,
+    /// Background color
     pub bg_color:   Option<Color>,
+    /// Foreground color
     pub fg_color:   Option<Color>,
+    /// The block's "icon" - printed on the left of the `text`
     pub icon:       String,
+    /// Main content of the block
     pub text:       String,
 }
 
+/// The `Color` type. Outputs as a #aarrggbb hex string.
 #[derive(PartialEq)]
 pub struct Color(pub u8, pub u8, pub u8, pub u8);
 
 impl BlockPosition {
+    /// Returns a slice::Iter with all the BlockPositions. Used for iterating through the
+    /// alignments when printing the Bar.
     pub fn iter() -> Iter<'static, BlockPosition> {
         static POSITIONS: [BlockPosition; 3] = [Left, Center, Right];
         POSITIONS.iter()

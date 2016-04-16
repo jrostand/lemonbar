@@ -75,7 +75,7 @@ mod tests {
             text: "test".to_string(),
         };
 
-        assert!(button.to_string() == "%{A1:reboot:}%{A3:halt:}test%{A}%{A}");
+        assert_eq!(button.to_string(), "%{A1:reboot:}%{A3:halt:}test%{A}%{A}");
     }
 
     #[test]
@@ -85,15 +85,15 @@ mod tests {
             command: "echo".to_string(),
         };
 
-        assert!(action.to_string() == "%{A1:echo:}");
+        assert_eq!(action.to_string(), "%{A1:echo:}");
     }
 
     #[test]
     fn mouse_button_to_string() {
-        assert!(MouseButton::Left.to_string() == "1");
-        assert!(MouseButton::Middle.to_string() == "2");
-        assert!(MouseButton::Right.to_string() == "3");
-        assert!(MouseButton::ScrollUp.to_string() == "4");
-        assert!(MouseButton::ScrollDown.to_string() == "5");
+        assert_eq!(MouseButton::Left.to_string(), "1");
+        assert_eq!(MouseButton::Middle.to_string(), "2");
+        assert_eq!(MouseButton::Right.to_string(), "3");
+        assert_eq!(MouseButton::ScrollUp.to_string(), "4");
+        assert_eq!(MouseButton::ScrollDown.to_string(), "5");
     }
 }

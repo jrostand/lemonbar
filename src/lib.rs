@@ -46,6 +46,6 @@ mod tests {
             blocks: vec![block1],
         };
 
-        assert!(bar.to_string() == "%{l}%{B#ff181818}%{F#ffe8e8e8}icon text%{F-}%{B-}%{c}%{r}");
+        assert_eq!(bar.to_string(), "%{l}%{B#ff181818}%{F#ffe8e8e8}icon text%{F-}%{B-}%{c}%{r}");
     }
 }

@@ -94,7 +94,7 @@ mod tests {
             text: "test".to_string(),
         };
 
-        assert!(block.to_string() == "%{B#ff181818}%{F#ffe8e8e8}i test%{F-}%{B-}");
+        assert_eq!(block.to_string(), "%{B#ff181818}%{F#ffe8e8e8}i test%{F-}%{B-}");
     }
 
     #[test]
@@ -107,7 +107,7 @@ mod tests {
             text: "test".to_string(),
         };
 
-        assert!(block.to_string() == "%{B#ff181818}%{F-}i test%{F-}%{B-}");
+        assert_eq!(block.to_string(), "%{B#ff181818}%{F-}i test%{F-}%{B-}");
     }
 
     #[test]
@@ -120,7 +120,7 @@ mod tests {
             text: "test".to_string(),
         };
 
-        assert!(block.to_string() == "%{B-}%{F#ffe8e8e8}i test%{F-}%{B-}");
+        assert_eq!(block.to_string(), "%{B-}%{F#ffe8e8e8}i test%{F-}%{B-}");
     }
 
     #[test]
@@ -133,20 +133,20 @@ mod tests {
             text: "test".to_string(),
         };
 
-        assert!(block.to_string() == "%{B-}%{F-}i test%{F-}%{B-}");
+        assert_eq!(block.to_string(), "%{B-}%{F-}i test%{F-}%{B-}");
     }
 
     #[test]
     fn block_position_to_string() {
-        assert!(BlockPosition::Left.to_string() == "%{l}");
-        assert!(BlockPosition::Center.to_string() == "%{c}");
-        assert!(BlockPosition::Right.to_string() == "%{r}");
+        assert_eq!(BlockPosition::Left.to_string(), "%{l}");
+        assert_eq!(BlockPosition::Center.to_string(), "%{c}");
+        assert_eq!(BlockPosition::Right.to_string(), "%{r}");
     }
 
     #[test]
     fn color_to_string() {
         let color = Color(255, 24, 24, 24);
 
-        assert!(color.to_string() == "#ff181818");
+        assert_eq!(color.to_string(), "#ff181818");
     }
 }

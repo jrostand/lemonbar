@@ -7,7 +7,7 @@ pub mod button;
 /// The `Bar` struct holds Blocks together and makes them all into a lemonbar string.
 pub struct Bar {
     /// The Blocks, in display order, to output to lemonbar
-    blocks: Vec<block::Block>,
+    pub blocks: Vec<block::Block>,
 }
 
 impl fmt::Display for Bar {

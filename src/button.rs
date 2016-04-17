@@ -24,13 +24,19 @@ pub struct ClickAction {
 
 impl fmt::Display for Button {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let mut content = self.text.to_string();
-
-        for action in self.actions.iter().rev() {
-            content = format!("{}{}%{{A}}", action, content);
+        for action in self.actions.iter() {
+            try!(write!(f, "{}", action));
         }
 
-        write!(f, "{}", content)
+        // Write the button text
+        try!(write!(f, "{}", self.text.to_string()));
+
+        // Write the button closing tags
+        for _ in 0 .. self.actions.len() {
+            try!(write!(f, "%{{A}}"));
+        }
+
+        Ok(())
     }
 }
 

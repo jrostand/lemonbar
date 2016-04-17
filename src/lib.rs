@@ -13,19 +13,20 @@ pub struct Bar {
 
 impl fmt::Display for Bar {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let mut bar_string = String::new();
-
         for position in block::BlockPosition::iter() {
+            // Get only those blocks in our current position
             let blocks = self.blocks.iter().filter(|b| b.align == *position);
 
-            bar_string = format!("{}{}", bar_string, position);
+            // Write the position string to the buffer
+            try!(write!(f, "{}", position));
 
+            // Write the blocks to the buffer
             for block in blocks {
-                bar_string = format!("{}{}", bar_string, block);
+                try!(write!(f, "{}", block));
             }
         }
 
-        write!(f, "{}", bar_string)
+        Ok(())
     }
 }
 

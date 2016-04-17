@@ -2,6 +2,7 @@ use std::fmt;
 use std::slice::Iter;
 
 use self::BlockPosition::*;
+use color::Color;
 
 /// The `BlockPosition` type. Tells lemonbar where to position the Block.
 #[derive(PartialEq)]
@@ -24,10 +25,6 @@ pub struct Block {
     /// Main content of the block
     pub text:       String,
 }
-
-/// The `Color` type. Outputs as a #aarrggbb hex string.
-#[derive(PartialEq)]
-pub struct Color(pub u8, pub u8, pub u8, pub u8);
 
 impl BlockPosition {
     /// Returns a slice::Iter with all the BlockPositions. Used for iterating through the
@@ -72,24 +69,18 @@ impl fmt::Display for BlockPosition {
     }
 }
 
-impl fmt::Display for Color {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let Color(alpha, red, green, blue) = *self;
-
-        write!(f, "#{:x}{:x}{:x}{:x}", alpha, red, green, blue)
-    }
-}
-
 #[cfg(test)]
 mod tests {
-    use super::{Color, Block, BlockPosition};
+    use super::*;
+
+    use color::Color;
 
     #[test]
     fn block_all_colors() {
         let block = Block {
             align: BlockPosition::Left,
-            bg_color: Some(Color(255, 0x18, 0x18, 0x18)),
-            fg_color: Some(Color(255, 0xe8, 0xe8, 0xe8)),
+            bg_color: Some(Color::rgb(0x18, 0x18, 0x18)),
+            fg_color: Some(Color::rgb(0xe8, 0xe8, 0xe8)),
             icon: "i".to_string(),
             text: "test".to_string(),
         };
@@ -101,7 +92,7 @@ mod tests {
     fn block_bg_only() {
         let block = Block {
             align: BlockPosition::Left,
-            bg_color: Some(Color(255, 0x18, 0x18, 0x18)),
+            bg_color: Some(Color::rgb(0x18, 0x18, 0x18)),
             fg_color: None,
             icon: "i".to_string(),
             text: "test".to_string(),
@@ -115,7 +106,7 @@ mod tests {
         let block = Block {
             align: BlockPosition::Left,
             bg_color: None,
-            fg_color: Some(Color(255, 0xe8, 0xe8, 0xe8)),
+            fg_color: Some(Color::rgb(0xe8, 0xe8, 0xe8)),
             icon: "i".to_string(),
             text: "test".to_string(),
         };
@@ -141,12 +132,5 @@ mod tests {
         assert_eq!(BlockPosition::Left.to_string(), "%{l}");
         assert_eq!(BlockPosition::Center.to_string(), "%{c}");
         assert_eq!(BlockPosition::Right.to_string(), "%{r}");
-    }
-
-    #[test]
-    fn color_to_string() {
-        let color = Color(255, 24, 24, 24);
-
-        assert_eq!(color.to_string(), "#ff181818");
     }
 }

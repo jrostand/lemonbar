@@ -3,6 +3,7 @@ use std::fmt::Write;
 
 pub mod block;
 pub mod button;
+pub mod color;
 
 /// The `Bar` struct holds Blocks together and makes them all into a lemonbar string.
 pub struct Bar {
@@ -36,8 +37,8 @@ mod tests {
     fn bar_to_string() {
         let block1 = block::Block {
             align: block::BlockPosition::Left,
-            bg_color: Some(block::Color(0xff, 0x18, 0x18, 0x18)),
-            fg_color: Some(block::Color(0xff, 0xe8, 0xe8, 0xe8)),
+            bg_color: Some(color::Color::rgb(0x18, 0x18, 0x18)),
+            fg_color: Some(color::Color::rgb(0xe8, 0xe8, 0xe8)),
             icon: "icon".to_string(),
             text: "text".to_string(),
         };

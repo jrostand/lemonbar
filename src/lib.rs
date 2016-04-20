@@ -6,12 +6,12 @@ pub mod button;
 pub mod color;
 
 /// The `Bar` struct holds Blocks together and makes them all into a lemonbar string.
-pub struct Bar {
+pub struct Bar<'a> {
     /// The Blocks, in display order, to output to lemonbar
-    pub blocks: Vec<block::Block>,
+    pub blocks: Vec<block::Block<'a>>,
 }
 
-impl fmt::Display for Bar {
+impl<'a> fmt::Display for Bar<'a> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         for position in block::BlockPosition::iter() {
             // Get only those blocks in our current position
@@ -34,14 +34,16 @@ impl fmt::Display for Bar {
 mod tests {
     use super::*;
 
+    use std::borrow::Cow;
+
     #[test]
     fn bar_to_string() {
         let block1 = block::Block {
             align: block::BlockPosition::Left,
             bg_color: Some(color::Color::rgb(0x18, 0x18, 0x18)),
             fg_color: Some(color::Color::rgb(0xe8, 0xe8, 0xe8)),
-            icon: "icon".to_string(),
-            text: "text".to_string(),
+            icon: Cow::Borrowed("icon"),
+            text: Cow::Borrowed("text"),
         };
 
         let bar = Bar {

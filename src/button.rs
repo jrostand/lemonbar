@@ -1,4 +1,5 @@
 use std::fmt;
+use std::borrow::Cow;
 
 /// The `MouseButton` type. Identifies mouse buttons for actions.
 pub enum MouseButton {
@@ -10,19 +11,19 @@ pub enum MouseButton {
 }
 
 /// Buttons contain a `Vec` of `ClickAction`s and some text. Typically used as the `text` of a `Block`.
-pub struct Button {
-    pub actions:    Vec<ClickAction>,
-    pub text:       String,
+pub struct Button<'a> {
+    pub actions:    Vec<ClickAction<'a>>,
+    pub text:       Cow<'a, str>,
 }
 
 /// ClickActions hold a `MouseButton` and the command to execute when that mouse button is
 /// triggered on the `Block`.
-pub struct ClickAction {
+pub struct ClickAction<'a> {
     pub button:     MouseButton,
-    pub command:    String,
+    pub command:    Cow<'a, str>,
 }
 
-impl fmt::Display for Button {
+impl<'a> fmt::Display for Button<'a> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         for action in self.actions.iter() {
             try!(write!(f, "{}", action));
@@ -40,7 +41,7 @@ impl fmt::Display for Button {
     }
 }
 
-impl fmt::Display for ClickAction {
+impl<'a> fmt::Display for ClickAction<'a> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "%{{A{}:{}:}}", self.button, self.command)
     }
@@ -64,21 +65,23 @@ impl fmt::Display for MouseButton {
 mod tests {
     use super::{Button, ClickAction, MouseButton};
 
+    use std::borrow::Cow;
+
     #[test]
     fn button_to_string() {
         let left_action = ClickAction {
             button: MouseButton::Left,
-            command: "reboot".to_string(),
+            command: Cow::Borrowed("reboot"),
         };
 
         let right_action = ClickAction {
             button: MouseButton::Right,
-            command: "halt".to_string(),
+            command: Cow::Borrowed("halt"),
         };
 
         let button = Button {
             actions: vec![left_action, right_action],
-            text: "test".to_string(),
+            text: Cow::Borrowed("test"),
         };
 
         assert_eq!(button.to_string(), "%{A1:reboot:}%{A3:halt:}test%{A}%{A}");
@@ -88,7 +91,7 @@ mod tests {
     fn click_action_to_string() {
         let action = ClickAction {
             button: MouseButton::Left,
-            command: "echo".to_string(),
+            command: Cow::Borrowed("echo"),
         };
 
         assert_eq!(action.to_string(), "%{A1:echo:}");
